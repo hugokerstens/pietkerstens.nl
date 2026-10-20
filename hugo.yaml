@@ -1,0 +1,14 @@
+baseURL: https://pietkerstens.nl/
+locale: nl-NL
+defaultContentLanguage: nl
+title: Piet Kerstens
+timeZone: Europe/Amsterdam
+enableRobotsTXT: true
+disableKinds: [taxonomy, term]
+params:
+  description: Piet Kerstens - Architecturale Tekeningen
+  email: pietjk@hotmail.nl
+  phone: +31 6 28169720
+  phoneLink: +31628169720
+permalinks:
+  posts: /blog/:slug/

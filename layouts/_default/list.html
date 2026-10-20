@@ -1,0 +1,9 @@
+{{ define "main" }}
+<section class="page">
+  <h1>{{ .Title }}</h1>
+  {{ .Content }}
+  {{ range .Pages.ByDate.Reverse }}
+    <article class="post-summary"><h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>{{ with .Description }}<p>{{ . }}</p>{{ end }}</article>
+  {{ else }}<p>Er zijn nog geen berichten.</p>{{ end }}
+</section>
+{{ end }}

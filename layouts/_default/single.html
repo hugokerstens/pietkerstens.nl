@@ -1,0 +1,16 @@
+{{ define "main" }}
+<article class="page">
+  <a class="back-link" href="{{ site.Home.RelPermalink }}">← Alle kunstwerken</a>
+  <h1>{{ .Title }}</h1>
+  {{ if eq .Section "artworks" }}
+    {{ with .Resources.GetMatch .Params.image }}
+      {{ $display := .Resize "1600x webp q90" }}
+      <img class="artwork-full" src="{{ $display.RelPermalink }}" width="{{ $display.Width }}" height="{{ $display.Height }}" alt="{{ $.Params.alt | default $.Title }}">
+    {{ else }}{{ errorf "Missing artwork image for %s" .File.Path }}{{ end }}
+    <p>Materiaal: {{ .Params.material }}<br>Afmetingen: {{ .Params.dimensions }}</p>
+  {{ else if eq .Section "posts" }}
+    <p class="post-date"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02-01-2006" }}</time></p>
+  {{ end }}
+  <div class="prose">{{ .Content }}</div>
+</article>
+{{ end }}

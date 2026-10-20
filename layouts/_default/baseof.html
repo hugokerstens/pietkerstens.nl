@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="{{ site.Language.Locale }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} | {{ site.Title }}{{ end }}</title>
+  <meta name="description" content="{{ .Description | default site.Params.description }}">
+  <link rel="canonical" href="{{ .Permalink }}">
+  <link rel="icon" href="{{ "images/logo.png" | relURL }}">
+  {{ $css := resources.Get "css/site.css" | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+  {{ $js := resources.Get "js/gallery.js" | minify | fingerprint }}
+  <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+  {{ with .OutputFormats.Get "rss" }}<link rel="alternate" type="application/rss+xml" href="{{ .Permalink }}" title="{{ site.Title }}">{{ end }}
+</head>
+<body>
+  <a class="skip-link" href="#main">Naar inhoud</a>
+  <header class="site-header">
+    <a href="{{ site.Home.RelPermalink }}" aria-label="Piet Kerstens: home"><img class="logo" src="{{ "images/logo.png" | relURL }}" width="50" height="50" alt="PK"></a>
+    <div class="header-right">
+      {{ if where site.RegularPages "Section" "posts" }}<nav aria-label="Hoofdnavigatie"><a href="{{ site.Home.RelPermalink }}">Werk</a><a href="{{ with site.GetPage "/posts" }}{{ .RelPermalink }}{{ end }}">Blog</a></nav>{{ end }}
+      <div><a href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a><br><a href="tel:{{ site.Params.phoneLink }}">{{ site.Params.phone }}</a></div>
+    </div>
+  </header>
+  <main id="main">{{ block "main" . }}{{ end }}</main>
+</body>
+</html>

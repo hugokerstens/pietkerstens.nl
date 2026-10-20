@@ -1,0 +1,30 @@
+{{ define "main" }}
+{{ $artworks := (where site.RegularPages "Section" "artworks").ByWeight }}
+<h1 class="visually-hidden">{{ site.Title }}: Architecturale Tekeningen</h1>
+<div class="gallery" aria-label="Kunstwerken">
+  {{ range seq 0 3 }}
+    {{ $column := . }}
+    <div class="gallery-column">
+      {{ range $index, $artwork := $artworks }}
+        {{ if eq (mod $index 4) $column }}
+          {{ with $artwork.Resources.GetMatch $artwork.Params.image }}
+            {{ $thumbnail := .Resize "640x webp q85" }}
+            <a class="artwork" href="{{ $artwork.RelPermalink }}" data-gallery-item data-order="{{ $index }}" data-image="{{ .RelPermalink }}" data-title="{{ $artwork.Title }}" data-material="{{ $artwork.Params.material }}" data-dimensions="{{ $artwork.Params.dimensions }}" aria-label="Bekijk {{ $artwork.Title }}">
+              <img src="{{ $thumbnail.RelPermalink }}" width="{{ $thumbnail.Width }}" height="{{ $thumbnail.Height }}" alt="{{ $artwork.Params.alt | default $artwork.Title }}" loading="{{ if lt $index 4 }}eager{{ else }}lazy{{ end }}">
+            </a>
+          {{ else }}{{ errorf "Missing artwork image for %s: %s" $artwork.File.Path $artwork.Params.image }}{{ end }}
+        {{ end }}
+      {{ end }}
+    </div>
+  {{ end }}
+</div>
+<dialog class="lightbox" aria-labelledby="lightbox-title">
+  <button class="lightbox-close" type="button" aria-label="Sluiten">×</button>
+  <button class="lightbox-previous" type="button" aria-label="Vorig kunstwerk">‹</button>
+  <figure>
+    <img class="lightbox-image" alt="">
+    <figcaption aria-live="polite"><h2 id="lightbox-title"></h2><p class="lightbox-material"></p><p class="lightbox-dimensions"></p></figcaption>
+  </figure>
+  <button class="lightbox-next" type="button" aria-label="Volgend kunstwerk">›</button>
+</dialog>
+{{ end }}

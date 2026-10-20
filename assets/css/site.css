@@ -1,0 +1,45 @@
+@font-face{font-family:Raleway;font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/raleway-400.ttf') format('truetype')}
+@font-face{font-family:Raleway;font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/raleway-500.ttf') format('truetype')}
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/cormorant-500.ttf') format('truetype')}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:flex;flex-direction:column;color:#000;background:#fff;font:400 16px/1.5 Raleway,Arial,sans-serif}
+a{color:inherit;text-decoration:none}
+a:hover{text-decoration:underline}
+button{font:inherit;color:inherit;cursor:pointer}
+a:focus-visible,button:focus-visible{outline:2px solid #555;outline-offset:5px}
+.site-header{display:flex;align-items:center;justify-content:space-between;padding:8px 48px;min-height:76px}
+.logo{display:block;width:50px;height:50px}
+.header-right{display:flex;gap:32px;align-items:center}
+nav{display:flex;gap:20px}
+main{flex:1}
+.gallery{display:grid;grid-template-columns:1fr;gap:16px;width:100%;max-width:540px;margin:48px auto 0;padding:0 12px}
+.gallery-column{display:flex;flex-direction:column;gap:16px;min-width:0}
+.artwork{display:block;line-height:0}
+.artwork img{width:100%;height:auto;display:block}
+.lightbox{position:fixed;inset:0;margin:0;width:100%;height:100%;max-width:none;max-height:none;border:0;padding:24px;background:rgba(255,255,255,.97);color:#000;overflow:auto}
+.lightbox::backdrop{background:rgba(255,255,255,.95)}
+.lightbox[open]{display:flex;align-items:center;justify-content:center}
+.lightbox figure{margin:0;width:100%;text-align:center}
+.lightbox-image{display:block;max-width:calc(100vw - 96px);max-height:76vh;width:auto;height:auto;margin:auto;object-fit:contain}
+.lightbox figcaption{position:absolute;right:48px;bottom:36px;text-align:left;max-width:calc(100% - 96px);background:rgba(255,255,255,.9);padding:8px}
+.lightbox h2{font:500 28px/1.2 'Cormorant Garamond',Georgia,serif;margin:0 0 8px}
+.lightbox p{font-size:12px;margin:0 0 8px}
+.lightbox button{position:absolute;border:0;background:rgba(255,255,255,.8);z-index:1;line-height:1;padding:10px}
+.lightbox-close{right:16px;top:12px;font-size:32px}
+.lightbox-previous{left:8px;top:45%;font-size:40px}
+.lightbox-next{right:8px;top:45%;font-size:40px}
+body:has(.lightbox[open]){overflow:hidden}
+.page{max-width:900px;margin:48px auto;padding:0 24px}
+.page h1{font:500 40px/1.2 'Cormorant Garamond',Georgia,serif}
+.artwork-full,.prose img{display:block;max-width:100%;height:auto}
+.back-link,.post-date{font-size:13px}
+.prose{line-height:1.8}
+.prose a{text-decoration:underline}
+.post-summary{margin:32px 0}
+.visually-hidden,.skip-link:not(:focus){position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+.skip-link:focus{position:fixed;top:8px;left:8px;background:white;padding:8px;z-index:10}
+@media(min-width:768px){.gallery{max-width:720px}}
+@media(min-width:992px){.gallery{max-width:960px;grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(min-width:1200px){.gallery{max-width:1140px}}
+@media(min-width:1400px){.gallery{max-width:1320px}}
+@media(max-width:575px){.site-header{padding:12px 24px}.header-right{gap:12px;flex-direction:column;align-items:flex-end;font-size:13px}.gallery{margin-top:32px}.lightbox{padding:16px}.lightbox-image{max-height:65vh}.lightbox figcaption{left:16px;right:16px;bottom:12px;max-width:none}.lightbox h2{font-size:23px}}
